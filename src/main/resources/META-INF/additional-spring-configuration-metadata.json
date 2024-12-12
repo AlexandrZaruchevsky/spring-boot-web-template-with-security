@@ -1,0 +1,87 @@
+{"properties": [
+  {
+    "name": "db.vendor",
+    "type": "java.lang.String",
+    "description": "A description for 'db.vendor'"
+  },
+  {
+    "name": "db.host",
+    "type": "java.lang.String",
+    "description": "A description for 'db.host'"
+  },
+  {
+    "name": "db.port",
+    "type": "java.lang.String",
+    "description": "A description for 'db.port'"
+  },
+  {
+    "name": "db.name",
+    "type": "java.lang.String",
+    "description": "A description for 'db.name'"
+  },
+  {
+    "name": "db.url",
+    "type": "java.lang.String",
+    "description": "A description for 'db.url'"
+  },
+  {
+    "name": "db.user",
+    "type": "java.lang.String",
+    "description": "A description for 'db.user'"
+  },
+  {
+    "name": "db.password",
+    "type": "java.lang.String",
+    "description": "A description for 'db.password'"
+  },
+  {
+    "name": "app.security.super-user",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.super-user'"
+  },
+  {
+    "name": "app.security.super-user-email",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.super-user-email'"
+  },
+  {
+    "name": "app.security.super-user-password",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.super-user-password'"
+  },
+  {
+    "name": "app.security.super-user-role",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.super-user-role'"
+  },
+  {
+    "name": "app.security.guest-role",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.guest-role'"
+  },
+  {
+    "name": "app.security.jwt-access-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.jwt-access-secret'"
+  },
+  {
+    "name": "app.security.jwt-refresh-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.jwt-refresh-secret'"
+  },
+  {
+    "name": "app.security.jwt-access-token-expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.jwt-access-token-expiration'"
+  },
+  {
+    "name": "app.security.jwt-refresh-token-expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'app.security.jwt-refresh-token-expiration'"
+  },
+  {
+    "name": "spring.devtools.livereload.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.devtools.livereload.enabled'"
+  }
+]}

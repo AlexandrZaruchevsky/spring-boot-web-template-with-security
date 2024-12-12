@@ -1,0 +1,48 @@
+db:
+  vendor: ${APP_DB_VENDOR:postgresql}
+  host: ${APP_DB_HOST:localhost}
+  port: ${APP_DB_PORT:5432}
+  name: ${APP_DB_NAME:security}
+  url: jdbc:${db.vendor}://${db.host}:${db.port}/${db.name}
+  user: ${APP_DB_USER:pgadmin}
+  password: ${APP_DB_PASSWORD:12345678}
+  
+server:
+  port: 8080
+
+spring:
+  application:
+    name: S-B-S-T
+    version: 0.0.0
+  main:
+    banner-mode: off
+  datasource:
+    url: ${db.url}
+    username: ${db.user}
+    password: ${db.password}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  flyway:
+    url: ${db.url}
+    user: ${db.user}
+    password: ${db.password}
+    schemas:
+      - security
+  devtools:
+    livereload:
+      enabled: false
+app:
+  security:
+    super-user: ${APP_SUPER_USER:adm}
+    super-user-email: ${APP_SUPER_USER_EMAIL:adm@mail}
+    super-user-password: ${APP_SUPER_USER_PASSWORD:P@ssw0rd}
+    super-user-role: ${APP_SUPER_USER_ROLE:SUPER_USER}
+    guest-role: ${APP_GUEST_ROLE:GUEST} 
+    jwt-access-secret: qBTmv4oXFFR2GwjexDJ4t6fsIUIUhhXqlktXjXdkcyygs8nPVEwMfo29VDRRepYDVV5IkIxBMzr7OEHXEHd37w==
+    jwt-refresh-secret: zL1HB3Pch05Avfynovxrf/kpF9O2m4NCWKJUjEp27s9J2jEG3ifiKCGylaZ8fDeoONSTJP/wAzKawB8F9rOMNg==
+    jwt-access-token-expiration: 3000
+    jwt-refresh-token-expiration: 3600
