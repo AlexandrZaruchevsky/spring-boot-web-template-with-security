@@ -3,11 +3,15 @@ package ru.az.sandbox.security.dto;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import ru.az.sandbox.security.model.Permission;
 import ru.az.sandbox.security.model.Role;
 
 public record RoleDtoV1(
 		Long id,
+		@NotNull
+		@Size(min = 4, max = 64)
 		String roleName,
 		List<String> permissions,
 		String status

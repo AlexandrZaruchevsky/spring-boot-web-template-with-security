@@ -1,4 +1,4 @@
-@accessToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG0iLCJpYXQiOjE3MzQwMjU5NTgsImV4cCI6MTczNDAyODk1OCwib3duZXIiOiIiLCJyb2xlcyI6WyJ1c2VyOnJlYWQiLCJ1c2VyOndyaXRlIiwiYWRtaW46cmVhZCIsImd1ZXN0IiwiYWRtaW46d3JpdGUiXX0.yxro9WVCkZ7StA3CXwHYclj7coEEGgi8aBXeQ_3LBgkUiAtaCpp7XlHQLThi_a9L4_r3pSfYh8qYxSGkIW2o4w
+@accessToken=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG0iLCJpYXQiOjE3MzQxMDk0NzYsImV4cCI6MTczNDExMjQ3Niwib3duZXIiOiIiLCJyb2xlcyI6WyJ1c2VyOnJlYWQiLCJ1c2VyOndyaXRlIiwiYWRtaW46cmVhZCIsImd1ZXN0IiwiYWRtaW46d3JpdGUiXX0.i5gNu4vazLFjVw-_jchXstqNr5nqBVytUbFmmTZbZ6AdPPcsloNWmZc6MopfK-QpFDIuu80OXTzg5-S50ehE2g
 
 POST http://localhost:8080/api/v1/auth/login HTTP/1.1
 Content-Type: application/json
@@ -27,7 +27,7 @@ Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
-    "roleName": "ROLE_USER",
+    "roleName": "RO",
     "permissions": [
         "USER_READ",
         "USER_WRITE"
@@ -41,7 +41,7 @@ Content-Type: application/json
 
 {
     "id": 3,
-    "roleName": "ROLE_USER_UPDATED",
+    "roleName": "ROLE",
     "permissions": [
         "USER_READ",
         "USER_WRITE"

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -52,7 +53,7 @@ public class AdminRoleRestControllerV1 {
 	@PostMapping
 	@PreAuthorize("hasAuthority('admin:write')")
 	public ResponseEntity<RoleDtoV1> create(
-			@RequestBody RoleDtoV1 roleDto,
+			@Validated @RequestBody RoleDtoV1 roleDto,
 			HttpServletRequest request
 	) throws ZException{
 		RoleDtoV1 reponse = adminRoleService.create(roleDto);
@@ -68,7 +69,7 @@ public class AdminRoleRestControllerV1 {
 	@PutMapping
 	@PreAuthorize("hasAuthority('admin:write')")
 	public ResponseEntity<RoleDtoV1> update(
-			@RequestBody RoleDtoV1 roleDto
+			@Validated @RequestBody RoleDtoV1 roleDto
 	) throws ZException{
 		RoleDtoV1 response = adminRoleService.update(roleDto);
 		return ResponseEntity.ok(response);

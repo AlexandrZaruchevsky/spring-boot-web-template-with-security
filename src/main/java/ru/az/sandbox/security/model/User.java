@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -57,7 +58,7 @@ public class User extends EntityTemplate {
 	private String middleName;
 
 	
-	@ManyToMany(fetch = EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			schema = "security",
 			name = "user_role",

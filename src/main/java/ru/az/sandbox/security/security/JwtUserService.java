@@ -17,7 +17,7 @@ public class JwtUserService implements UserDetailsService{
 	private final UserRepoV1 userRepo;
 	
 	@Override
-	@Cacheable(cacheNames = "jwt-security-users", key = "#username")
+	@Cacheable(cacheNames = "security-users", key = "#username")
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return userRepo.findByUsernameAndStatus(username, EntityStatus.ACTIVE)
 				.map(JwtUser::new)

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class UserServiceV1Impl implements UserServiceV1 {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {"users"}, allEntries = true)
 	public UserResponseDtoV1 registration(UserRegistrationDtoV1 registration) throws ZException {
 		return roleRepo.findByRoleNameAndStatus(this.roleGuest, ACTIVE)
 			.map(role ->{
@@ -55,7 +57,7 @@ public class UserServiceV1Impl implements UserServiceV1 {
 
 	@Override
 	@Transactional
-	@CacheEvict(cacheNames = "jwt-security-users", allEntries = true)
+	@CacheEvict(cacheNames = {"security-users", "users"}, allEntries = true)
 	public UserResponseDtoV1 update(UserUpdateDtoV1 userUpdateDto) throws ZException {
 		User user = _findById(userUpdateDto.id());
 		BeanUtils.copyProperties(userUpdateDto, user, "id");
@@ -63,6 +65,7 @@ public class UserServiceV1Impl implements UserServiceV1 {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "users", key = "#id")
 	public UserResponseDtoV1 findById(Long id) throws ZException {
 		User user = _findById(id);
 		return UserResponseDtoV1.createWithRoles(user);
@@ -70,7 +73,7 @@ public class UserServiceV1Impl implements UserServiceV1 {
 
 	@Override
 	@Transactional
-	@CacheEvict(cacheNames = "jwt-security-users", allEntries = true)
+	@CacheEvict(cacheNames = {"security-users", "users"}, allEntries = true)
 	public void changePassword(ChangePasswordRequestV1 changePasswordRequest) throws ZException {
 		User user = userRepo.findByUsername(changePasswordRequest.username())
 			.orElseThrow(() -> new ZNotFoundEntityException(

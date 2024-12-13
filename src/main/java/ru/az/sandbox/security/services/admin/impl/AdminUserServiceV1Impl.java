@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,7 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {"users"}, allEntries = true)
 	public UserResponseDtoV1 create(UserCreateOrUpdateDtoV1 dto) throws ZException {
 		User user = new User();
 		_fromDto(dto, user);
@@ -58,6 +60,7 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {"security-users", "users"}, allEntries = true)
 	public UserResponseDtoV1 update(UserCreateOrUpdateDtoV1 dto) throws ZException {
 		User user = _findByIdAndStatus(dto.id(), ACTIVE);
 		_fromDto(dto, user);
@@ -66,6 +69,7 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {"security-users", "users"}, allEntries = true)
 	public UserResponseDtoV1 deleteById(Long id) throws ZException {
 		User user = _findByIdAndStatus(id, ACTIVE);
 		user.setStatus(EntityStatus.DELETED);
@@ -73,6 +77,7 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "users", key = "#id")
 	public UserResponseDtoV1 findById(Long id) throws ZException {
 		User user = _findById(id);
 		return UserResponseDtoV1.createWithRoles(user);
@@ -80,6 +85,7 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {"security-users", "users"}, allEntries = true)
 	public void changeEntityStatus(Long id, String status) throws ZException {
 		EntityStatus st = EntityStatus.getStatus(status);
 		if (st.equals(UNDEFINED)) {
@@ -92,6 +98,7 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 
 	@Override
 	@Transactional
+	@CacheEvict(cacheNames = {"security-users", "users"}, allEntries = true)
 	public void changePassword(ChangePasswordRequestV1 changePasswordRequest) throws ZException {
 		User user = userRepo.findByUsername(changePasswordRequest.username())
 			.orElseThrow(() -> new ZNotFoundEntityException(
@@ -105,6 +112,10 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 	}
 
 	@Override
+	@Cacheable(
+			cacheNames = "users", 
+			key = "{#request?.filter, #request?.sortBy, #request?.statusEntity, #request?.isAllEntity}"
+	)
 	public List<UserResponseDtoV1> findAll(PageRequestDtoV2 request) {
 		EntityStatus status = EntityStatus.getStatus(request.statusEntity());
 		status = UNDEFINED.equals(status) ? ACTIVE : status;
@@ -124,6 +135,10 @@ public class AdminUserServiceV1Impl implements AdminUserServiceV1 {
 	}
 
 	@Override
+	@Cacheable(
+			cacheNames = "users", 
+			key = "{#request?.filter, #request?.sortBy, #request?.statusEntity, #request?.isAllEntity, #request?.pageNumber, #request?.pageSize}"
+	)
 	public Page<UserResponseDtoV1> findAllAsPage(PageRequestDtoV2 request) {
 		EntityStatus status = EntityStatus.getStatus(request.statusEntity());
 		status = UNDEFINED.equals(status) ? ACTIVE : status;

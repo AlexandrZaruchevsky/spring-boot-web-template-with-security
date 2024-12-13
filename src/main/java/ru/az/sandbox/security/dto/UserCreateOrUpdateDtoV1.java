@@ -4,21 +4,19 @@ import java.util.List;
 import java.util.Optional;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record UserCreateOrUpdateDtoV1(
 		Long id,
-		@NotNull(
-				message = "username may not be null",
-				groups = { Create.class, Update.class }
-		) String username,
-		@NotNull(
-				message = "email may not be null",
-				groups = { Create.class, Update.class }
-		) String email,
-		@NotNull(
-				message = "password may not be null",
-				groups = { Create.class }
-		) String password,
+		@NotNull(groups = { Create.class, Update.class }) 
+		@Size(min = 4, max = 64, groups = { Create.class, Update.class })
+		String username,
+		@NotNull(groups = { Create.class, Update.class })
+		@Size(min = 4, max = 256, groups = { Create.class, Update.class })
+		String email,
+		@NotNull(groups = { Create.class }) 
+		@Size(min = 8, max = 128, groups = { Create.class})
+		String password,
 		String lastName,
 		String firstName,
 		String middleName,
