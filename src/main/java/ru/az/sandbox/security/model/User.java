@@ -1,7 +1,5 @@
 package ru.az.sandbox.security.model;
 
-import static jakarta.persistence.FetchType.EAGER;
-
 import java.util.List;
 
 import org.springframework.util.StringUtils;

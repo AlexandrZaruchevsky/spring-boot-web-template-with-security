@@ -35,6 +35,11 @@ spring:
   devtools:
     livereload:
       enabled: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
 app:
   security:
     super-user: ${APP_SUPER_USER:adm}
